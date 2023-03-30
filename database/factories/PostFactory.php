@@ -20,7 +20,7 @@ class PostFactory extends Factory
             'title' => $this->faker->paragraph(1),
             'body' => $this->faker->paragraph(20),
             'user_id' => \App\Models\User::get()->random()->id,
-            'image' => $this->faker->image('public/storage/image',640,480,null,false)
+            // 'image' => $this->faker->image('public/storage/image',640,480,null,false)
         ];
     }
 }
