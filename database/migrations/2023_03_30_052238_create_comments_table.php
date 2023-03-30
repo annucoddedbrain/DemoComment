@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('message');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('blog_id');
+            $table->unsignedBigInteger('post_id');
             $table->timestamps();
 
             $table->foreign('user_id')
@@ -23,7 +23,7 @@ return new class extends Migration
             ->on('users')
             ->onDelete('cascade');
 
-            $table->foreign('blog_id')
+            $table->foreign('post_id')
             ->references('id')
             ->on('users')
             ->onDelete('cascade');
