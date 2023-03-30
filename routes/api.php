@@ -19,4 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('all',[PostController::class, "index"]);
+
 Route::post('/post/{post_id}/comments/create',[CommentController::class,'create'])->middleware('auth:sanctum');
