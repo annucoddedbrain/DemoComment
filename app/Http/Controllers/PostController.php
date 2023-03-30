@@ -7,11 +7,10 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Models\Post;
-use Faker\Test\Provider\Collection;
 
 class PostController extends Controller
 {
-    public function getAllPost() : JsonResponse{
+    public function getAllPublicPost() : JsonResponse{
         $post = Post::all();
         return response()->json([
             'code' => Response::HTTP_OK,

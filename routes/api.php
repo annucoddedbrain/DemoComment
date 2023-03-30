@@ -20,8 +20,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('all',[PostController::class, "getAllPost"]);
+Route::get('all',[PostController::class, "getAllPublicPost"]);
 Route::post('createPost',[PostController::class, "createPost"]);
 Route::post('getPostByUser',[PostController::class, "getMyAllPosts"]);
 
-Route::post('/post/{post_id}/comments/create',[CommentController::class,'create'])->middleware('auth:sanctum');
+
+
+Route::post('comment',[CommentController::class, "comment"]);
+
+Route::post('delete', [CommentController::class,"delete"]);
+
+// Route::post('/post/{user_id}/comments/create',[CommentController::class,'create'])->middleware('auth:sanctum');
+
+
+
