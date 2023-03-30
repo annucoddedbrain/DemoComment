@@ -22,9 +22,6 @@ class PostController extends Controller
     }
 
     public function createPost(Request $request) : JsonResponse{
-
-
-
         $post = Post::create([
             'image'=>$request->image,
             'title'=>$request->title,
@@ -32,7 +29,6 @@ class PostController extends Controller
             'slug'=>$request->slug,
             'user_id'=>$request->user_id,
             'body'=>$request->body,
-            
         ]);
 
         return response()->json([
@@ -44,40 +40,22 @@ class PostController extends Controller
 
     }
 
+    // get all perticulater profile post by user Id 
+    // Request body
+    // {
+    //     "user_id":"1"
+    // }
     
-    public function getbyUserId(Request $request){
-        // $post = Post::find($request->user_id);
-        $search =  $request->get('user_id');
-        $image = Post::where('user_id','LIKE', "%{$search}%")->Paginate();
-    
-
+    public function getMyAllPosts(Request $request){
+        $name_id = $request->input('user_id');
+        $users = Post::where('user_id', $name_id)->get();
         return response()->json([
             'code' => Response::HTTP_OK,
             'status' => true,
-            "data" => [$image],
+            "data" => [ $users],
             "message" => ("by user post list")
         ], Response::HTTP_OK);
     }
 
-
-    public function getData(Request $request){
-        $name_id = $request->input('name_id', []);
-$aussehen = $request->input('aussehen', []);
-
-$query = Stufen::whereIn('name_id', array_unique($name_id))
-                ->whereIn('stufe', array_unique($aussehen))
-                ->get()
-                ->indexBy('name_id');
-$collection = [];
-foreach ($name_id as $nameId) {
-    $collection[] = $results[$nameId];
-}
-    }
-
-
-    public function show($slug){
-        $post = Post::whereSlug($slug)->first();
-        
-        return view('post.view',compact('posts'));
-    }
+    
 }

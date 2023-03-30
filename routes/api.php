@@ -22,6 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('all',[PostController::class, "getAllPost"]);
 Route::post('createPost',[PostController::class, "createPost"]);
-Route::post('getPostByUser',[PostController::class, "getbyUserId"]);
+Route::post('getPostByUser',[PostController::class, "getMyAllPosts"]);
 
 Route::post('/post/{post_id}/comments/create',[CommentController::class,'create'])->middleware('auth:sanctum');
