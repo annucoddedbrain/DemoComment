@@ -10,7 +10,7 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
-    public function getAllPublicPost() : JsonResponse{
+    public function getAllPost() : JsonResponse{
         $post = Post::all();
         return response()->json([
             'code' => Response::HTTP_OK,
