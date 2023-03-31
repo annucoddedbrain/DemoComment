@@ -22,7 +22,7 @@ class UserController extends Controller
     $validator  = Validator::make($request->all(), [
         'name'  => 'required|string',
         'email'      => 'required|unique:users,email|string',
-        'password'     => 'required'
+        'password'     => 'required|string|min:6|confirmed'
     ]);
 
 
@@ -42,6 +42,37 @@ class UserController extends Controller
         'user' => $user
     ]);
 
+   }
 
+   public function login(Request $request)
+   {
+    $validator  = Validator::make($request->all(), [
+        'email'      => 'required|string|email',
+        'password'     => 'required|string|min:6'
+    ]);
+
+
+    if($validator->fails())
+    {
+        return response()->json($validator->errors(),400);
+    }
+
+    // Tokenization point
+    if(!$token = auth()->attempt($validator->validated()))
+    {
+        return response()->json([
+            'error'=> "Unauthorized"
+        ]);
+    }
+
+   }
+
+   protected function respondeWithToken($token)
+   {
+    return response()->json([
+        'access_token' => $token,
+        'token_type' => 'bearer',
+        'expire_in' => auth()->factory()->getTTL()*60
+    ]); 
    }
 }
