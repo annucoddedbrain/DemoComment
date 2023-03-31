@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,9 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::get('all',[PostController::class, "getAllPublicPost"]);
 Route::post('createPost',[PostController::class, "createPost"]);
@@ -32,5 +33,8 @@ Route::post('delete', [CommentController::class,"delete"]);
 
 // Route::post('/post/{user_id}/comments/create',[CommentController::class,'create'])->middleware('auth:sanctum');
 
+Route::group(['middleware'=>'api'],function($routes){
 
+    Route::post('register',[UserController::class,"register"]);
+});
 
