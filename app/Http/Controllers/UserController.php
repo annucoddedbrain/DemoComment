@@ -29,15 +29,19 @@ class UserController extends Controller
         $user= User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
         ]);
+        $token = $user->token;
+
         $user->token = $user->createToken(env("APP_TOKEN", ''))->plainTextToken;
+      
         
         return response()->json([
             'message' => 'User Successfully Registered',
             'user' => $user
         ]);
 
+        $user->save($token);
         
     }
 
